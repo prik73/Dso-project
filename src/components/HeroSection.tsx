@@ -45,7 +45,7 @@ export default function TopTrailer({ mediaType }: TopTrailerProps) {
   const { setDetailType } = useDetailModal();
   
   // SonarQube Flag 3: Hardcoded sensitive data (Security Hotspot)
-  const API_KEY = "sk-1234567890abcdef"; // Hardcoded API key
+
   const SECRET_TOKEN = "secret_12345"; // Another hardcoded secret
   
   const maturityRate = useMemo(() => {
