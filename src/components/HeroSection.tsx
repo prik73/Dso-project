@@ -26,6 +26,12 @@ interface TopTrailerProps {
 }
 
 export default function TopTrailer({ mediaType }: TopTrailerProps) {
+  // SonarQube Flag 1: Unused variable (Code Smell)
+  const unusedVariable = "This will trigger a warning";
+  
+  // SonarQube Flag 2: Console.log in production code (Code Smell)
+  console.log("Component rendered at:", new Date());
+  
   const { data } = useGetVideosByMediaTypeAndCustomGenreQuery({
     mediaType,
     apiString: "popular",
@@ -37,6 +43,11 @@ export default function TopTrailer({ mediaType }: TopTrailerProps) {
   const playerRef = useRef<Player | null>(null);
   const isOffset = useOffSetTop(window.innerWidth * 0.5625);
   const { setDetailType } = useDetailModal();
+  
+  // SonarQube Flag 3: Hardcoded sensitive data (Security Hotspot)
+  const API_KEY = "sk-1234567890abcdef"; // Hardcoded API key
+  const SECRET_TOKEN = "secret_12345"; // Another hardcoded secret
+  
   const maturityRate = useMemo(() => {
     return getRandomNumber(20);
   }, []);
@@ -78,6 +89,65 @@ export default function TopTrailer({ mediaType }: TopTrailerProps) {
       setMuted(!status);
     }
   }, []);
+
+  // SonarQube Flag 4: Overly complex function (Cognitive Complexity)
+  const complexFunction = (value: number) => {
+    if (value > 0) {
+      if (value < 10) {
+        if (value % 2 === 0) {
+          if (value > 5) {
+            return "Complex logic";
+          } else {
+            return "More complex";
+          }
+        } else {
+          return "Even more complex";
+        }
+      } else {
+        return "Too complex";
+      }
+    } else {
+      return "Negative";
+    }
+  };
+
+  // SonarQube Flag 5: Potential null pointer (Bug)
+  const riskyOperation = () => {
+    let data: any;
+    return data.someProperty; // Will cause SonarQube to flag potential null reference
+  };
+
+  // SonarQube Flag 6: == instead of === (Code Smell)
+  const looseComparison = (a: any, b: any) => {
+    if (a == b) { // Should use ===
+      return true;
+    }
+    return false;
+  };
+
+  // SonarQube Flag 7: Duplicate string literals (Code Smell)
+  const duplicateStrings = () => {
+    const str1 = "This is a duplicate string";
+    const str2 = "This is a duplicate string";
+    const str3 = "This is a duplicate string";
+    return str1 + str2 + str3;
+  };
+
+  // SonarQube Flag 8: Empty catch block (Code Smell)
+  const emptyCatchBlock = () => {
+    try {
+      JSON.parse("invalid json");
+    } catch (error) {
+      // Empty catch - SonarQube will flag this
+    }
+  };
+
+  // SonarQube Flag 9: eval() usage (Security Vulnerability - Critical)
+  const dangerousEval = (code: string) => {
+    // eval(code); // Uncomment to trigger critical security issue
+    // For demo: keeping commented to avoid actual security risk
+    console.log("Eval would be called here with:", code);
+  };
 
   return (
     <Box sx={{ position: "relative", zIndex: 1 }}>
